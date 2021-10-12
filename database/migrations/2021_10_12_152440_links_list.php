@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLinksTable extends Migration
+class LinksList extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateLinksTable extends Migration
             $table->integer('redirect_count');
             $table->unsignedInteger('creator_ip');
             $table->integer('user_id')->nullable();
-            $table->date('created_at');
+            $table->timestamps();
             $table->date('expires_at');
         });
     }
@@ -31,6 +31,6 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('links_list');
     }
 }
