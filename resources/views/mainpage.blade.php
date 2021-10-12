@@ -1,3 +1,5 @@
+@section('title', 'Linkcutter - главная страница')
+@section('main')
 <h1>Главная страныца</h1>
 <form id="form">
     @csrf
@@ -40,3 +42,5 @@ form.onsubmit = async (e) => {
     });
 };
 </script>
+@endsection
+@include('layout')
