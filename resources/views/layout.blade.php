@@ -7,6 +7,16 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <header>
+        @auth
+            Вы успешно вошли
+            <a href="/logout">Выйти</a>
+        @endauth
+        @guest
+            <a href="/registration">Регистрация</a>
+            <a href="/login">Войти</a>
+        @endguest
+    </header>
     @yield('main')
 </body>
 </html>

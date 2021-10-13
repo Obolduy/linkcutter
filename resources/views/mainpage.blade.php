@@ -3,7 +3,7 @@
 <h1>Главная страныца</h1>
 <form id="form">
     @csrf
-    <input type="text" name="link" placeholder="Введите текст ссылки">
+    <input type="text" name="link" placeholder="Введите текст ссылки" required>
     <input type="submit" value="Сгенерировать ссылку">
 </form>
 <script>
