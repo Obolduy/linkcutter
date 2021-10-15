@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{RegistrationController, LoginController, AddLinkController};
+use App\Http\Controllers\{RegistrationController, LoginController, AddLinkController, LinkController};
 
 Route::view('/', 'mainpage');
 Route::post('/addlink', [AddLinkController::class, 'addLink']);
@@ -21,4 +21,4 @@ Route::get('/account', [ShowUserController::class, '']);
 Route::get('/account/mylinks', [ShowUserController::class, '']);
 Route::post('/account/addlink', [AddLinkController::class, '']);
 Route::post('/account/deletelink', [DeleteLinkController::class, '']);
-//Route::get('/{link}', [LinkController::class, 'test']);
+Route::get('/{link}', [LinkController::class, 'linkmanager']);
