@@ -31,7 +31,8 @@ class AddLinkController extends Controller
             'redirect_count' => 0,
             'creator_ip' => ip2long($ip),
             'expires_at' => $date,
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'active' => 1
         ]);
 
         FullLinks::create([

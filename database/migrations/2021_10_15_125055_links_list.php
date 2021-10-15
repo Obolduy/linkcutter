@@ -20,6 +20,7 @@ class LinksList extends Migration
             $table->integer('redirect_count');
             $table->unsignedInteger('creator_ip');
             $table->integer('user_id')->nullable();
+            $table->integer('active');
             $table->timestamps();
             $table->date('expires_at');
         });
@@ -32,6 +33,6 @@ class LinksList extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('links_list');
     }
 }

@@ -18,6 +18,7 @@ class LinksList extends Model
         'creator_ip',
         'expires_at',
         'user_id',
+        'active',
         'created_at',
         'updated_at'
     ];
