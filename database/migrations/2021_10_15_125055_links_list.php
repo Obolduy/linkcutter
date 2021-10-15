@@ -16,6 +16,7 @@ class LinksList extends Migration
         Schema::create('links_list', function (Blueprint $table) {
             $table->id();
             $table->string('url', 256);
+            $table->string('short_url', 64);
             $table->integer('redirect_count');
             $table->unsignedInteger('creator_ip');
             $table->integer('user_id')->nullable();
@@ -31,6 +32,6 @@ class LinksList extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links_list');
+        //
     }
 }

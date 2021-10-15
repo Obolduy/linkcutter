@@ -13,6 +13,7 @@ class LinksList extends Model
 
     protected $fillable = [
         'url',
+        'short_url',
         'redirect_count',
         'creator_ip',
         'expires_at',

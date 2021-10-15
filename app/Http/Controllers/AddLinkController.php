@@ -6,6 +6,7 @@ use App\Models\LinksList;
 use App\Models\FullLinks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, DB};
+use Illuminate\Support\Str;
 
 class AddLinkController extends Controller
 {
@@ -19,11 +20,14 @@ class AddLinkController extends Controller
 
         $user_id ? $expires_day = 30 : $expires_day = 10;
         $date = date('Y-m-d', time() + 60*60*24*$expires_day); // + 10 или 30 дней
+        
+        $link_hash = $this->generateLink();
 
         DB::beginTransaction();
 
         $links_list = LinksList::create([
             'url' => $url['href'],
+            'short_url' => $link_hash,
             'redirect_count' => 0,
             'creator_ip' => ip2long($ip),
             'expires_at' => $date,
@@ -41,7 +45,20 @@ class AddLinkController extends Controller
             'search' => $url['search'],
             'hash' => $url['hash']
         ]);
-        
+
         DB::commit();
+
+        var_dump($link_hash);
+    }
+
+    private function generateLink(): string
+    {
+        $link = Str::random(6);
+
+        if (LinksList::where('short_url', $link)->first()) {
+            $this->generateLink();
+        }
+
+        return $link;
     }
 }
