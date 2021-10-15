@@ -2,8 +2,10 @@
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{RegistrationController, LoginController, AddLinkController, LinkController,
-ShowUserController};
+use App\Http\Controllers\{
+    RegistrationController, LoginController, AddLinkController, LinkController,
+    ShowUserController, ShowUserLinksController
+};
 
 Route::view('/', 'mainpage');
 Route::post('/addlink', [AddLinkController::class, 'addLink']);
@@ -19,7 +21,8 @@ Route::get('/account/verify_email/{id}/{hash}', function (EmailVerificationReque
 })->name('verification.verify');
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/account', [ShowUserController::class, 'showuser']);
-Route::get('/account/mylinks', [ShowUserController::class, '']);
+Route::get('/account/my_links', [ShowUserLinksController::class, 'showlinks']);
+Route::get('/account/update_link/{link_id}', [UpdateLinkController::class, 'updatelink']);
 Route::post('/account/addlink', [AddLinkController::class, '']);
 Route::post('/account/deletelink', [DeleteLinkController::class, '']);
 Route::get('/{link}', [LinkController::class, 'linkmanager']);

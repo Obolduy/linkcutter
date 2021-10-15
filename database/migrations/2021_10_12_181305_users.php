@@ -19,7 +19,7 @@ class Users extends Migration
             $table->string('password', 64);
             $table->rememberToken();
             $table->unsignedInteger('ip');
-            $table->dateTime('email_verified_at');
+            $table->dateTime('email_verified_at')->nullable();
             $table->timestamps();
         });
     }
