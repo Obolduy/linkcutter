@@ -10,7 +10,7 @@ class LinkController extends Controller
     {
         $dbLink = LinksList::where('short_url', $link)->first();
 
-        if ($dbLink || $dbLink->active == 1) {
+        if ($dbLink && $dbLink->active == 1) {
             $dbLink->redirect_count++;
             $dbLink->save();
 

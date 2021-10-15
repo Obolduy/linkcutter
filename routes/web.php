@@ -4,7 +4,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
-    ShowUserController, ShowUserLinksController
+    ShowUserController, ShowUserLinksController, UpdateLinkController
 };
 
 Route::view('/', 'mainpage');
