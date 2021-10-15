@@ -1,6 +1,7 @@
 @section('title', 'Linkcutter - главная страница')
 @section('main')
 <h1>Главная страныца</h1>
+<div id="message"></div>
 <form id="form">
     @csrf
     <input type="text" name="link" placeholder="Введите текст ссылки" required>
@@ -40,6 +41,14 @@ form.onsubmit = async (e) => {
         },
         body: JSON.stringify(data)
     });
+
+    if (response.ok) {
+		let hashed_link = await response.text();
+
+		form.elements.link.value = hashed_link;
+
+        document.getElementById('message').innerHTML = 'Ссылка сгенерирована удачно!';
+	}
 };
 </script>
 @endsection

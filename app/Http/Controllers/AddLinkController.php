@@ -48,7 +48,7 @@ class AddLinkController extends Controller
 
         DB::commit();
 
-        var_dump($link_hash);
+        echo "http://{$_SERVER['SERVER_NAME']}/$link_hash";
     }
 
     private function generateLink(): string
