@@ -4,7 +4,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
-    ShowUserController, ShowUserLinksController, UpdateLinkController
+    ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController
 };
 
 Route::view('/', 'mainpage');
@@ -20,6 +20,7 @@ Route::get('/account/verify_email/{id}/{hash}', function (EmailVerificationReque
     return redirect('/');
 })->name('verification.verify');
 Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/account/update_email/{hash}', [UpdateMailController::class, 'updatemaildate']);
 Route::get('/account', [ShowUserController::class, 'showuser']);
 Route::get('/account/my_links', [ShowUserLinksController::class, 'showlinks']);
 Route::get('/account/update_link/{link_id}', [UpdateLinkController::class, 'updatelink']);
