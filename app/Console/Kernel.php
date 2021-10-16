@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\DeleteLinkController;
 use App\Mail\EmailAgainConfirmation;
-use App\Models\User;
-use App\Models\EmailsVerifications;
+use App\Models\{User, EmailsVerifications, LinksList};
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -44,6 +44,19 @@ class Kernel extends ConsoleKernel
 
                     Mail::to($elem->email)->send(new EmailAgainConfirmation($hash));
                 }
+            }
+        })->daily();
+
+        $schedule->call(function () {
+            $links = LinksList::where('expires_at', '<', date('Y-m-d', time()))->get();
+
+            foreach ($links as $link) {
+                if (date('Y-m-d', strtotime($link->expires_at . "+30 days")) < date('Y-m-d', time())) {
+                    DeleteLinkController::deleteLink($link->id);
+                }
+                
+                $link->active = 0;
+                $link->save();
             }
         })->daily();
     }

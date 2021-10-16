@@ -14,10 +14,19 @@
         <td><a href="http://@php echo $_SERVER['SERVER_NAME'] @endphp/{{ $link->short_url }}">http://@php echo $_SERVER['SERVER_NAME'] @endphp/{{ $link->short_url }}</a></td>
         <td>{{ $link->redirect_count }}</td>
         <td>{{ $link->expires_at }}</td>
+        <td><a onclick="deleteConfirmation()" href="/account/delete_link/{{$link->id}}">Удалить ссылку</a></td>
         @if ($link->active == 0) <td><a href="/account/update_link/{{$link->id}}">Ссылка истекла! Обновить?</a></td> @endif
     </tr>
     @endforeach
 </table>
-
 @endsection
 @include('layout')
+<script type="text/javascript">
+    function deleteConfirmation() {
+        if (confirm("Вы уверены, что хотите удалить вашу ссылку?")) {
+            return true;
+        } else {
+            event.preventDefault();
+        }
+    }
+</script>

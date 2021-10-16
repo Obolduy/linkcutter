@@ -4,7 +4,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
-    ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController
+    ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController,
+    DeleteLinkController
 };
 
 Route::view('/', 'mainpage');
@@ -24,6 +25,7 @@ Route::get('/account/update_email/{hash}', [UpdateMailController::class, 'update
 Route::get('/account', [ShowUserController::class, 'showuser']);
 Route::get('/account/my_links', [ShowUserLinksController::class, 'showlinks']);
 Route::get('/account/update_link/{link_id}', [UpdateLinkController::class, 'updatelink']);
+Route::get('/account/delete_link/{link_id}', [DeleteLinkController::class, 'deleteLink']);
 Route::post('/account/addlink', [AddLinkController::class, '']);
 Route::post('/account/deletelink', [DeleteLinkController::class, '']);
 Route::get('/{link}', [LinkController::class, 'linkmanager']);
