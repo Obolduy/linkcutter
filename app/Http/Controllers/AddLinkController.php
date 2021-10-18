@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LinksList;
-use App\Models\FullLinks;
+use App\Models\{FullLinks, LinksList};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, DB};
 use Illuminate\Support\Str;
