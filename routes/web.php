@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
     ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController,
-    DeleteLinkController, ForgetPasswordController
+    DeleteLinkController, ForgetPasswordController, ChangePasswordController
 };
 
 Route::view('/', 'mainpage');
@@ -24,6 +24,8 @@ Route::view('/account/forget_password', 'resetpasswordform');
 Route::post('/account/forget_password/email_check', [ForgetPasswordController::class, 'checkEmail']);
 Route::view('/account/forget_password/success', 'resetpasswordformsuccess');
 Route::match(['GET', 'POST'], '/account/forget_password/reset_password/{hash}', [ForgetPasswordController::class, 'resetPassword']);
+Route::match(['GET', 'POST'], '/account/change_password', [ChangePasswordController::class, 'changePassword']);
+Route::get('/account/change_password/{hash}', [ChangePasswordController::class, 'changePasswordComplete']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/account/update_email/{hash}', [UpdateMailController::class, 'updatemaildate']);
 Route::get('/account', [ShowUserController::class, 'showuser']);
