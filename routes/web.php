@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
     ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController,
-    DeleteLinkController
+    DeleteLinkController, ForgetPasswordController
 };
 
 Route::view('/', 'mainpage');
@@ -20,12 +20,14 @@ Route::get('/account/verify_email/{id}/{hash}', function (EmailVerificationReque
 
     return redirect('/');
 })->name('verification.verify');
+Route::view('/account/forget_password', 'resetpasswordform');
+Route::post('/account/forget_password/email_check', [ForgetPasswordController::class, 'checkEmail']);
+Route::view('/account/forget_password/success', 'resetpasswordformsuccess');
+Route::match(['GET', 'POST'], '/account/forget_password/reset_password/{hash}', [ForgetPasswordController::class, 'resetPassword']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/account/update_email/{hash}', [UpdateMailController::class, 'updatemaildate']);
 Route::get('/account', [ShowUserController::class, 'showuser']);
 Route::get('/account/my_links', [ShowUserLinksController::class, 'showlinks']);
 Route::get('/account/update_link/{link_id}', [UpdateLinkController::class, 'updatelink']);
 Route::get('/account/delete_link/{link_id}', [DeleteLinkController::class, 'deleteLink']);
-Route::post('/account/addlink', [AddLinkController::class, '']);
-Route::post('/account/deletelink', [DeleteLinkController::class, '']);
 Route::get('/{link}', [LinkController::class, 'linkmanager']);

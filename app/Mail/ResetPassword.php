@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailAgainConfirmation extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class EmailAgainConfirmation extends Mailable
 
     public function build()
     {
-        return $this->from('testsender@mail.com', 'testname')->view('emailverifyagain')->with([
+        return $this->from('testsender@mail.com', 'testname')->view('emailpasswordreset')->with([
             'hash' => $this->hash
         ]);
     }

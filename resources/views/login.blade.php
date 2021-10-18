@@ -17,5 +17,6 @@
     <div class="login-remember_token-input"><input type="checkbox" name="remember_token" value="1"> Запомнить меня</div>
     <div class="login-submit-input"><input type="submit" name="submit" value="Войти"></div>
 </form>
+<div><a href="/account/forget_password">Забыли пароль?</a></div>
 @endsection
 @include('layout')
