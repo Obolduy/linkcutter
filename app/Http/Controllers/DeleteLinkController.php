@@ -15,7 +15,7 @@ class DeleteLinkController extends Controller
         $fullLink->delete();
 
         if ($_SERVER['REQUEST_METHOD']) {
-            return redirect('/');
+            return redirect()->intended();
         }
     }
 }

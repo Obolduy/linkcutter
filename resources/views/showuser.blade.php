@@ -6,5 +6,6 @@
 <div class="user__change_email"><a href="/account/change_email">Изменить email</a></div>
 <div class="user__change_password"><a href="/account/change_password">Изменить пароль</a></div>
 <div class="user__show_links_link"><a href="/account/my_links">Мои ссылки</a></div>
+<div class="user__show_main"><a href="/">На главную</a></div>
 @endsection
 @include('layout')

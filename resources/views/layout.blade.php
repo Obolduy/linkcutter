@@ -9,7 +9,7 @@
 <body>
     <header>
         @auth
-            Вы успешно вошли
+            <a href="/account">Аккаунт</a>
             <a href="/logout">Выйти</a>
         @endauth
         @guest
