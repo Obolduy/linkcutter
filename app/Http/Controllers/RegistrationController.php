@@ -18,7 +18,7 @@ class RegistrationController extends Controller
 
         $request->validate([
             'email' => 'max:64|unique:users',
-            'password' => 'alpha_dash|different:email',
+            'password' => 'alpha_dash|different:email|between:6,24',
             'confirm_password' => 'same:password'
         ]);
 
