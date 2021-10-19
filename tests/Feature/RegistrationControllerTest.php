@@ -53,7 +53,6 @@ class RegistrationControllerTest extends TestCase
             $this->assertFalse($user);
         }
         
-
         $response->assertLocation('/');
         $response->assertStatus(302);
     }
