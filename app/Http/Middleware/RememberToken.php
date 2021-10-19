@@ -22,12 +22,10 @@ class RememberToken
             if (isset($_COOKIE['remember_token'])) {
                 $user = User::where('remember_token', $_COOKIE['remember_token'])->first();
 
-                if (Auth::attempt(['email' => $user->email, 'password' => $user->password])) {
-                    $request->session()->regenerate();
-    
-                    $request->session()->put(['auth' => 1]);
-    
-                    return redirect()->intended();
+                if (Auth::loginUsingId($user->id)) {
+                    session()->regenerate();
+
+                    session(['auth' => 1]);
                 }
             }
         }
