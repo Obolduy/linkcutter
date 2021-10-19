@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Mail\Registration;
+use App\Models\{EmailsVerifications, User};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, DB, Hash};
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\{Auth, DB, Hash, Mail};
 
 class RegistrationController extends Controller
 {
@@ -36,7 +37,31 @@ class RegistrationController extends Controller
             $request->session()->put(['auth' => true]);
         }
 
-        event(new Registered($user));
+        $hash = Str::random();
+
+        $emailsVerifications = new EmailsVerifications;
+        $emailsVerifications->email = $user->email;
+        $emailsVerifications->hash = $hash;
+        $emailsVerifications->user_id = $user->id;
+        $emailsVerifications->save();
+
+        Mail::to($user->email)->send(new Registration($hash));
+
         return redirect('/');
+    }
+
+    public function verifyEmail(string $hash)
+    {
+        $user = User::find(Auth::id());
+        $emailsVerifications = EmailsVerifications::where('hash', $hash)->first();
+
+        if ($user->id == $emailsVerifications->user_id) {
+            $user->email_verified_at = now();
+            $user->save();
+
+            $emailsVerifications->delete();
+
+            return redirect('/');
+        }
     }
 }

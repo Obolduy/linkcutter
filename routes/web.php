@@ -9,14 +9,7 @@ use App\Http\Controllers\{
 };
 
 Route::middleware(['isauth'])->group(function () {
-    Route::get('/account/verify_email', function () {
-        return view('auth.verify-email');
-    })->name('verification.notice');
-    Route::get('/account/verify_email/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-    
-        return redirect('/');
-    })->name('verification.verify');
+    Route::get('/account/confirm_email/{hash}', [RegistrationController::class, 'verifyEmail']);
     Route::view('/account/forget_password', 'resetpasswordform');
     Route::post('/account/forget_password/email_check', [ForgetPasswordController::class, 'checkEmail']);
     Route::view('/account/forget_password/success', 'resetpasswordformsuccess');
