@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     RegistrationController, LoginController, AddLinkController, LinkController,
-    ShowUserController, ShowUserLinksController, UpdateLinkController, UpdateMailController,
-    DeleteLinkController, ForgetPasswordController, ChangePasswordController, ChangeEmailController
+    ChangeEmailController, ShowUserLinksController, UpdateLinkController, UpdateMailController,
+    DeleteLinkController, ForgetPasswordController, ChangePasswordController
 };
 
 Route::middleware(['isauth'])->group(function () {
@@ -20,7 +19,7 @@ Route::middleware(['isauth'])->group(function () {
     Route::get('/account/update_email/{hash}', [UpdateMailController::class, 'updatemaildate']);
     Route::match(['GET', 'POST'], '/account/change_email/', [ChangeEmailController::class, 'changeEmailRequest']);
     Route::get('/account/change_email/{hash}', [ChangeEmailController::class, 'changeEmailComplete']);
-    Route::get('/account', [ShowUserController::class, 'showuser']);
+    Route::view('/account', 'showuser');
     Route::get('/account/my_links', [ShowUserLinksController::class, 'showlinks']);
     Route::get('/account/update_link/{link_id}', [UpdateLinkController::class, 'updatelink']);
     Route::get('/account/delete_link/{link_id}', [DeleteLinkController::class, 'deleteLink']);
