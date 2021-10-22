@@ -42,9 +42,9 @@ class ChangePasswordController extends Controller
     public function changePasswordComplete(string $hash)
     {
         $user = User::find(Auth::id());
-        $passwordsChanges = PasswordsChanges::where('user_id', Auth::id())->first();
+        $passwordsChanges = PasswordsChanges::where('hash', $hash)->first();
 
-        if ($passwordsChanges->hash === $hash) {
+        if ($passwordsChanges) {
             $user->password = $passwordsChanges->new_password;
             $user->save();
             
