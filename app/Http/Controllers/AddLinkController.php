@@ -13,6 +13,14 @@ class AddLinkController extends Controller
     {
         $url = json_decode($request->getContent(), true);
 
+        if ($url['host'] === $_SERVER['SERVER_NAME']) {
+            $link = LinksList::where('short_url',mb_substr($url['pathname'], 1))->first();
+
+            if ($link) {
+                echo $link['url']; die();
+            }
+        }
+
         $user_id = Auth::id() ?? null;
         
         $ip = $request->ip ?? $_SERVER['REMOTE_ADDR'];
