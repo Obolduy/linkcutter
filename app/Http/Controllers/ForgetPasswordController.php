@@ -27,7 +27,7 @@ class ForgetPasswordController extends Controller
     {
         $passwordsResets = PasswordsResets::where('hash', $hash)->first();
 
-        if (!$passwordsResets->hash) {
+        if (!$passwordsResets) {
             return redirect('/');
         }
 
@@ -51,7 +51,7 @@ class ForgetPasswordController extends Controller
 
     public function checkEmail(Request $request)
     {
-        $email = strip_tags($request->getContent());
+        $email = strip_tags($request->email);
 
         $emailCheck = User::select('email')->where('email', $email)->first();
 

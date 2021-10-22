@@ -9,16 +9,18 @@
 <div id="error__message"></div>
 <script>
 form.onsubmit = async (e) => {    
-    let email = form.elements.email.value;
-
     e.preventDefault();
+
+    let data = {
+        email: form.elements.email.value
+    }
 
     let response = await fetch('/account/forget_password/email_check', {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': form.elements._token.value
         },
-        body: email
+        body: JSON.stringify(data)
     });
 
     if (response.ok) {

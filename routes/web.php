@@ -9,10 +9,6 @@ use App\Http\Controllers\{
 
 Route::middleware(['isauth'])->group(function () {
     Route::get('/account/confirm_email/{hash}', [RegistrationController::class, 'verifyEmail']);
-    Route::view('/account/forget_password', 'resetpasswordform');
-    Route::post('/account/forget_password/email_check', [ForgetPasswordController::class, 'checkEmail']);
-    Route::view('/account/forget_password/success', 'resetpasswordformsuccess');
-    Route::match(['GET', 'POST'], '/account/forget_password/reset_password/{hash}', [ForgetPasswordController::class, 'resetPassword']);
     Route::match(['GET', 'POST'], '/account/change_password', [ChangePasswordController::class, 'changePassword']);
     Route::get('/account/change_password/{hash}', [ChangePasswordController::class, 'changePasswordComplete']);
     Route::get('/logout', [LoginController::class, 'logout']);
@@ -27,6 +23,10 @@ Route::middleware(['isauth'])->group(function () {
 Route::middleware(['isntauth'])->group(function () {
     Route::match(['GET', 'POST'], '/login', [LoginController::class, 'login']);
     Route::match(['GET', 'POST'], '/registration', [RegistrationController::class, 'registration']);
+    Route::view('/account/forget_password', 'resetpasswordform');
+    Route::post('/account/forget_password/email_check', [ForgetPasswordController::class, 'checkEmail']);
+    Route::match(['GET', 'POST'], '/account/forget_password/reset_password/{hash}', [ForgetPasswordController::class, 'resetPassword']);
+    Route::view('/account/forget_password/success', 'resetpasswordformsuccess');
 });
 Route::view('/', 'mainpage');
 Route::post('/addlink', [AddLinkController::class, 'addLink'])->middleware('emailcheck');
