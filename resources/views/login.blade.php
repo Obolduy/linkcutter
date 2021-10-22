@@ -3,11 +3,9 @@
 <h1>Вход в систему</h1>
 @if ($errors->any())
     <div class="errors">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
     </div>
 @endif
 <form method="POST">

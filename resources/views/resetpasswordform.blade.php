@@ -8,7 +8,7 @@
 </form>
 <div id="error__message"></div>
 <script>
-form.onsubmit = async (e) => {    
+form.onsubmit = async (e) => {
     e.preventDefault();
 
     let data = {
