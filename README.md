@@ -1,14 +1,13 @@
-1. Ссылки:
-    <!--1) Действуют 10 дней.-->
-    <!--2) Если юзер зареганый, то 30 дней с возможностью продления.-->
-    <!--3) В базу пишется автор, сама ссылка, дата создания, дата истечения, количество переходов.-->
-    <!--4) Создание отдельной таблицы, в которую записываются разобранные ссылки: хост, юри,
-        возможно, различные параметры (с помощью JS);
-            С помощью js в таблицу добавить вот что:
-                protocol, origin, host, hostname, href, pathname, search, hash.-->
+<ul>
+    <li>PHP: PHP 7.3</li>
+    <li>Framework: Laravel 8</li>
+    <li>DB: MySQL 8</li>
+    <li>Server: Apache 2.4</li>
+</ul>
 
-2. Пользователь:
-    <!--6) В базу пишется имейл, пароль, ip (int unsigned (чтобы добавить в таблицу: 
-        INET_ATON('строчка с айпи'), чтобы извлечь из таблицы: INET_NTOA(колонка)) (или php функция long2ip()), дата регистрации.-->
-    <!--7) Каждые n дней требуется подтверждение имейла (что аккаунт не однодневный).-->
-оформление + тесты
+<p>There is a "Linkcutter": pet-project in Laravel 8. The Linkcutter takes youre url and returns short (cutted) url. And if you give it a shorted url (by itself), Linkcutter will return an original url.</p>
+<p>Life cycle if cutted link is 10 days for non-auth user and 30 days for auth user. After it, non-auth user`s link will switch off, and then delete. But auth-user`s link just turn off, and user can turn it on in his home page.</p>
+<p>Every 20 days, if user doesn`t manipulate email or password in his account, it must be verified again by email. Durning time that it mustn`t, user can`t create new links.</p>
+
+todo:
+Чуть разнообразить тестирование добавления ссылок и оформить.
