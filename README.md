@@ -11,6 +11,9 @@
 
 <p>As you can see, I used MySQL 8, but in docker-compose.yml I'm using 5.7. So because of this DB dump using only CREATE TABLE and INSERT commands.</p>
 
+<h2>API</h2>
+<p>Also you can use the API. This app using Sanctum for generating token (you need an account for this). So, via generated token you can create, delete and get your links. To create the link you should send POST-request to /api/link with you link. If everything is ok, Linkcutter will return the cutted link. If you want to see youre links, send GET-request to /api/link or /api/link/{link_id} to get a JSON with links (or link) information. And if you want to delete some link, send DELETE-request to the same URI.</p>
+
 <h2>Run</h2>
 <p>You can run this app via docker-compose up and try it on <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>.</p>
 
