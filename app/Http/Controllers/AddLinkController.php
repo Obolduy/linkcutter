@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{FullLinks, LinksList};
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, DB};
 use Illuminate\Support\Str;
@@ -22,8 +23,38 @@ class AddLinkController extends Controller
         }
 
         $user_id = Auth::id() ?? null;
+
+        $link_hash = $this->addLinkToDB($request->ip, $user_id, $url);
+
+        echo "http://{$_SERVER['SERVER_NAME']}/$link_hash";
+    }
+
+    public function apiAddLink(Request $request)
+    {
+        try {
+            $url = parse_url(strip_tags($request->getContent()));
+
+            $url['protocol'] = $url['scheme'];
+            $url['pathname'] = $url['path'];
+            $url['search'] = $url['query'] ?? null;
+            $url['hash'] = $url['fragment'] ?? null;
+            $url['hostname'] = $url['host'];
+            $url['origin'] = "{$url['scheme']}://{$url['hostname']}";
+            $url['href'] = strip_tags($request->getContent());
+    
+            unset($url['scheme'], $url['path'], $url['query'], $url['fragment']);
+    
+            $link_hash = $this->addLinkToDB($request->user()->ip, $request->user()->id, $url);
+        } catch (Exception $e) {
+            return response(["error" => "Check link"], 400);
+        }
         
-        $ip = $request->ip ?? $_SERVER['REMOTE_ADDR'];
+        return ["link" => "http://{$_SERVER['SERVER_NAME']}/$link_hash"];
+    }
+
+    private function addLinkToDB(?int $ip, ?int $user_id, array $url): string
+    {
+        $ip = $ip ?? $_SERVER['REMOTE_ADDR'];
 
         $user_id ? $expires_day = 30 : $expires_day = 10;
         $date = date('Y-m-d', time() + 60*60*24*$expires_day); // + 10 или 30 дней
@@ -56,7 +87,7 @@ class AddLinkController extends Controller
 
         DB::commit();
 
-        echo "http://{$_SERVER['SERVER_NAME']}/$link_hash";
+        return $link_hash;
     }
 
     private function generateLink(): string
