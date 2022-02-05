@@ -32,24 +32,33 @@ class AddLinkController extends Controller
     public function apiAddLink(Request $request)
     {
         try {
-            $url = parse_url(strip_tags($request->getContent()));
+            $array = json_decode(strip_tags($request->getContent()), true);
 
-            $url['protocol'] = $url['scheme'];
-            $url['pathname'] = $url['path'];
-            $url['search'] = $url['query'] ?? null;
-            $url['hash'] = $url['fragment'] ?? null;
-            $url['hostname'] = $url['host'];
-            $url['origin'] = "{$url['scheme']}://{$url['hostname']}";
-            $url['href'] = strip_tags($request->getContent());
-    
-            unset($url['scheme'], $url['path'], $url['query'], $url['fragment']);
-    
-            $link_hash = $this->addLinkToDB($request->user()->ip, $request->user()->id, $url);
+            $links = [];
+
+            foreach ($array as $elem) {
+                $url = parse_url($elem);
+
+                $url['protocol'] = $url['scheme'];
+                $url['pathname'] = $url['path'];
+                $url['search'] = $url['query'] ?? null;
+                $url['hash'] = $url['fragment'] ?? null;
+                $url['hostname'] = $url['host'];
+                $url['origin'] = "{$url['scheme']}://{$url['hostname']}";
+                $url['href'] = $elem;
+        
+                unset($url['scheme'], $url['path'], $url['query'], $url['fragment']);
+        
+                $link_hash = $this->addLinkToDB($request->user()->ip, $request->user()->id, $url);
+
+                $links[] = ["link" => "http://{$_SERVER['SERVER_NAME']}/$link_hash"];
+            }
+            
         } catch (Exception $e) {
             return response(["error" => "Check link"], 400);
         }
         
-        return ["link" => "http://{$_SERVER['SERVER_NAME']}/$link_hash"];
+        return $links;
     }
 
     private function addLinkToDB(?int $ip, ?int $user_id, array $url): string
